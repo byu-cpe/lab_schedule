@@ -27,6 +27,7 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
             max-width: 1400px;
             page-break-after: always;
+            scroll-margin-top: 100px;
         }
 
         h1 {
@@ -161,6 +162,41 @@
             text-align: center;
         }
 
+        .lab-nav {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            margin: 0 auto 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            max-width: 1400px;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .nav-link {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #0047BA, #0072CE);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0, 71, 186, 0.3);
+        }
+
+        .nav-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 71, 186, 0.4);
+            background: linear-gradient(135deg, #0072CE, #0047BA);
+        }
+
         @media print {
             body {
                 background: white;
@@ -182,13 +218,18 @@
                 box-shadow: none !important;
                 transform: none !important;
             }
+
+            .lab-nav {
+                display: none;
+            }
         }
     </style>
 </head>
 
 <body>
     <h1>Lab Schedules<br>Winter 2026</h1>
-        <div class="lab-container">
+    <div class="lab-nav"><a href="#eb-408" class="nav-link">Controls Lab</a><a href="#eb-423" class="nav-link">Digital Lab</a><a href="#eb-424" class="nav-link">Analog Lab</a><a href="#eb-425" class="nav-link">Analog Lab</a><a href="#eb-438" class="nav-link">Embedded Lab</a></div>
+        <div class="lab-container" id="eb-408">
         <h2>Controls Lab (EB 408)</h2>
         <div class="calendar">
             <div class="calendar-row calendar-header">
@@ -337,9 +378,22 @@
                 <div class="day-column">
                 </div>
             </div>
+            <div class="calendar-row">
+                <div class="time-label">6:00 PM</div>
+                <div class="day-column">
+                </div>
+                <div class="day-column">
+                </div>
+                <div class="day-column">
+                </div>
+                <div class="day-column">
+                </div>
+                <div class="day-column">
+                </div>
+            </div>
         </div>
     </div>
-    <div class="lab-container">
+    <div class="lab-container" id="eb-423">
         <h2>Digital Lab (EB 423)</h2>
         <div class="calendar">
             <div class="calendar-row calendar-header">
@@ -492,6 +546,27 @@
                 <div class="day-column">
                 </div>
                 <div class="day-column">
+                    <div class="class-block" style="background-color: #ecccf2; top: 0.0px; height: 128.33333333333331px; width: 96%; left: 2%;">
+                        <div class="class-title">IT&C 566</div>
+                        <div class="class-time">5:00p-6:50p</div>
+                    </div>
+                </div>
+                <div class="day-column">
+                </div>
+                <div class="day-column">
+                    <div class="class-block" style="background-color: #ecccf2; top: 0.0px; height: 128.33333333333331px; width: 96%; left: 2%;">
+                        <div class="class-title">IT&C 566</div>
+                        <div class="class-time">5:00p-6:50p</div>
+                    </div>
+                </div>
+                <div class="day-column">
+                </div>
+            </div>
+            <div class="calendar-row">
+                <div class="time-label">6:00 PM</div>
+                <div class="day-column">
+                </div>
+                <div class="day-column">
                 </div>
                 <div class="day-column">
                 </div>
@@ -502,7 +577,7 @@
             </div>
         </div>
     </div>
-    <div class="lab-container">
+    <div class="lab-container" id="eb-424">
         <h2>Analog Lab (EB 424)</h2>
         <div class="calendar">
             <div class="calendar-row calendar-header">
@@ -699,9 +774,22 @@
                 <div class="day-column">
                 </div>
             </div>
+            <div class="calendar-row">
+                <div class="time-label">6:00 PM</div>
+                <div class="day-column">
+                </div>
+                <div class="day-column">
+                </div>
+                <div class="day-column">
+                </div>
+                <div class="day-column">
+                </div>
+                <div class="day-column">
+                </div>
+            </div>
         </div>
     </div>
-    <div class="lab-container">
+    <div class="lab-container" id="eb-425">
         <h2>Analog Lab (EB 425)</h2>
         <div class="calendar">
             <div class="calendar-row calendar-header">
@@ -882,9 +970,22 @@
                 <div class="day-column">
                 </div>
             </div>
+            <div class="calendar-row">
+                <div class="time-label">6:00 PM</div>
+                <div class="day-column">
+                </div>
+                <div class="day-column">
+                </div>
+                <div class="day-column">
+                </div>
+                <div class="day-column">
+                </div>
+                <div class="day-column">
+                </div>
+            </div>
         </div>
     </div>
-    <div class="lab-container">
+    <div class="lab-container" id="eb-438">
         <h2>Embedded Lab (EB 438)</h2>
         <div class="calendar">
             <div class="calendar-row calendar-header">
@@ -1034,6 +1135,19 @@
             </div>
             <div class="calendar-row">
                 <div class="time-label">5:00 PM</div>
+                <div class="day-column">
+                </div>
+                <div class="day-column">
+                </div>
+                <div class="day-column">
+                </div>
+                <div class="day-column">
+                </div>
+                <div class="day-column">
+                </div>
+            </div>
+            <div class="calendar-row">
+                <div class="time-label">6:00 PM</div>
                 <div class="day-column">
                 </div>
                 <div class="day-column">
