@@ -197,6 +197,34 @@
             background: linear-gradient(135deg, #0072CE, #0047BA);
         }
 
+        .lab-note {
+            margin: 0 0 16px;
+            padding: 12px 14px;
+            background: #f3f4f6;
+            border-left: 4px solid #0072CE;
+            border-radius: 8px;
+            color: #374151;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Highlight the cell for the current time slot */
+        .current-slot {
+            background: linear-gradient(90deg, rgba(0, 114, 206, 0.08), rgba(0, 114, 206, 0.02));
+            position: relative;
+        }
+
+        .current-time-marker {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #ef4444;
+            box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.2);
+            z-index: 30;
+            pointer-events: none;
+        }
+
         @media print {
             body {
                 background: white;
@@ -231,7 +259,8 @@
     <div class="lab-nav"><a href="#eb-408" class="nav-link">Controls Lab</a><a href="#eb-423" class="nav-link">Digital Lab</a><a href="#eb-424" class="nav-link">West Analog Lab</a><a href="#eb-425" class="nav-link">East Analog Lab</a><a href="#eb-438" class="nav-link">Embedded Lab</a></div>
         <div class="lab-container" id="eb-408">
         <h2>Controls Lab (EB 408)</h2>
-        <div class="calendar">
+        <div class="lab-note">The lab is open for use anytime another class is not scheduled. When there is another class scheduled, please leave the lab.</div>
+        <div class="calendar" data-start-hour="8" data-end-hour="19">
             <div class="calendar-row calendar-header">
                 <div class="time-label"></div>
                 <div class="day-column">Mon</div>
@@ -399,7 +428,8 @@
     </div>
     <div class="lab-container" id="eb-423">
         <h2>Digital Lab (EB 423)</h2>
-        <div class="calendar">
+        <div class="lab-note">The lab is open for use anytime another class is not scheduled. When there is another class scheduled, please leave the lab.</div>
+        <div class="calendar" data-start-hour="8" data-end-hour="19">
             <div class="calendar-row calendar-header">
                 <div class="time-label"></div>
                 <div class="day-column">Mon</div>
@@ -587,7 +617,8 @@
     </div>
     <div class="lab-container" id="eb-424">
         <h2>West Analog Lab (EB 424)</h2>
-        <div class="calendar">
+        <div class="lab-note">The lab is open for use anytime another class is not scheduled. When there is another class scheduled, please leave the lab.</div>
+        <div class="calendar" data-start-hour="8" data-end-hour="19">
             <div class="calendar-row calendar-header">
                 <div class="time-label"></div>
                 <div class="day-column">Mon</div>
@@ -803,7 +834,8 @@
     </div>
     <div class="lab-container" id="eb-425">
         <h2>East Analog Lab (EB 425)</h2>
-        <div class="calendar">
+        <div class="lab-note">The lab is open for use anytime another class is not scheduled. When there is another class scheduled, please leave the lab.</div>
+        <div class="calendar" data-start-hour="8" data-end-hour="19">
             <div class="calendar-row calendar-header">
                 <div class="time-label"></div>
                 <div class="day-column">Mon</div>
@@ -1003,7 +1035,8 @@
     </div>
     <div class="lab-container" id="eb-438">
         <h2>Embedded Lab (EB 438)</h2>
-        <div class="calendar">
+        <div class="lab-note">The lab is open for use anytime another class is not scheduled. When there is another class scheduled, please leave the lab.</div>
+        <div class="calendar" data-start-hour="8" data-end-hour="19">
             <div class="calendar-row calendar-header">
                 <div class="time-label"></div>
                 <div class="day-column">Mon</div>
@@ -1181,6 +1214,44 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const now = new Date();
+            const weekday = now.getDay(); // Sunday = 0, Monday = 1
+            const dayIndex = { 1: 0, 2: 1, 3: 2, 4: 3, 5: 4 }[weekday];
+            if (dayIndex === undefined) return; // Weekend
+
+            const hourNow = now.getHours() + now.getMinutes() / 60;
+
+            document.querySelectorAll('.calendar').forEach(cal => {
+                const startHour = Number(cal.dataset.startHour || 8);
+                const endHour = Number(cal.dataset.endHour || 18);
+                if (hourNow < startHour || hourNow >= endHour) return; // Outside calendar
+
+                const rows = Array.from(cal.querySelectorAll('.calendar-row')).filter(r => !r.classList.contains('calendar-header'));
+                if (!rows.length) return;
+
+                const rowIndex = Math.floor(hourNow - startHour);
+                if (rowIndex < 0 || rowIndex >= rows.length) return;
+
+                const row = rows[rowIndex];
+                const cols = row.querySelectorAll('.day-column');
+                if (dayIndex >= cols.length) return;
+
+                const targetCol = cols[dayIndex];
+                targetCol.classList.add('current-slot');
+
+                const sampleHeight = targetCol.getBoundingClientRect().height || 70;
+                const offsetWithinHour = (hourNow - (startHour + rowIndex)) * sampleHeight;
+
+                const marker = document.createElement('div');
+                marker.className = 'current-time-marker';
+                marker.style.top = `${Math.max(0, Math.min(sampleHeight - 2, offsetWithinHour))}px`;
+                targetCol.appendChild(marker);
+            });
+        });
+    </script>
 </body>
 
 </html>
